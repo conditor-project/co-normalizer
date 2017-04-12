@@ -1,4 +1,22 @@
 [
-  { "id1": "f70a9b51-87a1-4b97-b54d-4a1ea84d1de7" },
-  { "id1": "2b6372af-c83c-4379-944c-f1bff3ab25d8" }
+  {
+    "id": "11111111111",
+    "titre": "A la pêche je ne veux plus aller moman",
+    "auteur": "Qu'est ce que j'en sais ? ",
+    "doi": "10.1093/bioinformatics/btu019ut=WOS:000336095100034",
+    "issn": "1367-4803",
+    "numero":"n°5",
+    "volume":"v12",
+    "page":"1589"
+  },
+  { "id": "11111111111",
+    "titre": "Traité d'urbanisme des peuples nomades",
+    "auteur": "U. Eco",
+    "doi": "10.1093/bioinformatics/btu019ut=WOS:000336095100034",
+    "issn": "1367-4808",
+    "numero": "n08",
+    "volume": "vol 6",
+    "page": "p1333-p1338"
+
+  }
 ]
