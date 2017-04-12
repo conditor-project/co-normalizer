@@ -3,16 +3,15 @@ li-doTheJob
 
 ## Présentation ##
 
-Le module **li-dothejob** est un module minimal illustrant la partie fonctionnelle d'un `li-module`.
+Le module **co-normalizer** est un module permettant de normaliser des champs texte.
 
 ### Fonctionnement ###
 
-`li-dothejob` effectue ses traitements dans une fonction `doTheJob()` dédiée.
+`co-normalizer` effectue ses traitements dans une fonction `doTheJob()` dédiée.
 
 Dans notre cas minimal, le module effectue les opérations suivantes :
   * récupération en entrée d'un `docObject` (objet JSON avec un champ `idIstex`), ainsi que d'une callback `cb`.
-  * test sur la valeur du champ `idIstex`
-  * renseigne un nouveau champ `canvasOK` avec la valeur `true`, sauf pour une valeur précise d'idIstex
+  * normalisation des champs définis dans le fichier config.normalize.json
   * Les éventuelles erreurs sont renvoyées en paramètre de la callback `cb`
 
 ## Utilisation ##
@@ -60,9 +59,3 @@ L'exécution se fera donc en appelant cette fonction depuis une instanciation d`
 
 ### Codes d'erreur ###
 
-Plage de codes : 0~99
-
-Code | Signification | Note(s)
------- | ---------------- | ---------
-0 | Tout s'est bien passé |
-1 | J\'aime po cet ID là... |
