@@ -1,4 +1,4 @@
-li-doTheJob
+CO-NORMALIZER
 ===============
 
 ## Présentation ##
