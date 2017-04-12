@@ -115,33 +115,36 @@ var applyNormalization = function (name,value){
 
     var rules = JSON.parse(fs.readFileSync('config.normalize.json','utf8'));
 
+    /**
     if (rules[name]!==undefined){
         console.log('la regle existe :'+rules[name]);
     }
-
+    **/
     var normalize_effect = rules[name].split(',');
 
+
     _.forEach(normalize_effect, function(normalize_value){
-       if (normalize_value.trim()=="noespace")
-           value=value.replace(/ /ig,"");
-       if (normalize_value.trim()=="noaccent")
-           value = removeDiacritics(value);
-       if (normalize_value.trim()=="lowcase")
-           value=value.toLowerCase();
-       if (normalize_value.trim()=="alphanum")
-           value=value.replace(/[^0-9a-zA-Z]/gi,"");
 
-       if (normalize_value.trim()=="nopunctuation") {
-           value = value.replace(/\'/g, "");
-           value = value.replace(/\p{Punct}/gi, "");
-       }
-       if (normalize_value.trim()=="num")
-           value = value.replace(/[^0-9]/gi, "");
+        if (normalize_value.trim() == "noespace")
+            value = value.replace(/ /ig, "");
+        if (normalize_value.trim() == "noaccent")
+            value = removeDiacritics(value);
+        if (normalize_value.trim() == "lowcase")
+            value = value.toLowerCase();
+        if (normalize_value.trim() == "alphanum")
+            value = value.replace(/[^0-9a-zA-Z]/gi, "");
 
-       if (normalize_value.trim()=="firstnum")
-           value=/([0-9]+){1}/.exec(value)[0];
+        if (normalize_value.trim() == "nopunctuation") {
+            value = value.replace(/\'/g, "");
+            value = value.replace(/\p{Punct}/gi, "");
+        }
+        if (normalize_value.trim() == "num")
+            value = value.replace(/[^0-9]/gi, "");
+
+        if (normalize_value.trim() == "firstnum")
+            value = /([0-9]+){1}/.exec(value)[0];
+
     });
-
 
     return value.trim();
 
@@ -155,8 +158,6 @@ business.doTheJob = function (jsonLine, cb) {
 
     /* Pour chaque champs Conditor une suite de traitement à effectuer */
 
-    //console.log("titre : "+jsonLine.titre.trim());
-
     if (jsonLine.titre.trim() !==""){
         jsonLine.titre_normalized =applyNormalization('titre',jsonLine.titre);
     }
@@ -165,12 +166,12 @@ business.doTheJob = function (jsonLine, cb) {
         jsonLine.auteur_normalized =applyNormalization('auteur',jsonLine.auteur);
     }
 
-    if (jsonLine.ISSN.trim() !==""){
-        jsonLine.ISSN_normalized =applyNormalization('issn',jsonLine.ISSN);
+    if (jsonLine.issn.trim() !==""){
+        jsonLine.issn_normalized =applyNormalization('issn',jsonLine.issn);
     }
 
-    if (jsonLine.DOI.trim() != ""){
-        jsonLine.DOI_normalized =applyNormalization('doi',jsonLine.DOI);
+    if (jsonLine.doi.trim() != ""){
+        jsonLine.doi_normalized =applyNormalization('doi',jsonLine.doi);
     }
 
     if (jsonLine.numero.trim() !==""){

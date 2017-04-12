@@ -14,32 +14,18 @@ var
 describe(pkg.name + '/index.js', function () {
   describe('#doTheJob', function () {
 
-    it('docObject qui renvoie canvasOK @1', function (done) {
+
+    it('normalisation des champs de la premiere notice: ', function (done) {
       var docObject;
       business.doTheJob(docObject = testData[0], function (err) {
-        expect(err).to.be.undefined;
-        expect(docObject.canvasOK).to.be.true;
-        done();
-      });
-    });
-
-    it('docObject qui ne renvoie pas canvasOK @2', function (done) {
-      var docObject;
-      business.doTheJob(docObject = testData[1], function (err) {
-        expect(err).to.be.not.undefined;
-        expect(err.code).to.equal(1);
-        expect(docObject.canvasOK).to.be.false;
-        done();
-      });
-    });
-
-    it('docObjects qui renvoie un docObject en erreur et modifie l\'autre @3', function (done) {
-      var docObjects = testData;
-      business.finalJob(docObjects, function (err) {
-        expect(err).to.be.not.undefined;
-        expect(err.length, 'err.length').to.equal(1);
-        expect(docObjects.length, 'docObjects.length').to.equal(1);
-        expect(docObjects[0].ending).to.equal('finalJob');
+        expect(docObject.auteur_normalized).to.be.equal('questcequejensais');
+        expect(docObject.titre_normalized).to.be.equal('alapechejeneveuxplusallermoman');
+        expect(docObject.issn_normalized).to.be.equal('13674803');
+        expect(docObject.doi_normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');
+        expect(docObject.issn_normalized).to.be.equal('13674803');
+        expect(docObject.page_normalized).to.be.equal('1589');
+        expect(docObject.volume_normalized).to.be.equal('12');
+        expect(docObject.numero_normalized).to.be.equal('5');
         done();
       });
     });

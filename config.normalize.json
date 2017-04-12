@@ -1,9 +1,9 @@
 {
-  "titre":"accent, espace",
-  "auteur" :"accent, espace",
-  "issn" : "espace",
-  "doi" : "espace",
-  "volume" : "espace",
-  "numero" :"espace",
-  "page" : "espace"
+  "titre":"noespace, noaccent, lowcase, nopunctuation",
+  "auteur" :"noespace, noaccent, lowcase, nopunctuation",
+  "issn" : "alphanum",
+  "doi" : "alphanum",
+  "volume" : "num",
+  "numero" :"num",
+  "page" : "firstnum"
 }
