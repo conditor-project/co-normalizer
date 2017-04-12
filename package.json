@@ -1,0 +1,28 @@
+{
+  "name": "co-normalizer",
+  "version": "0.1.0",
+  "description": "Module métier basique.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://istex@vsistex.intra.inist.fr:22222/genicot/co-normalizer.git"
+  },
+  "keywords": [
+    "conditor"
+  ],
+  "author": "istex-api",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.4",
+    "mocha": "^2.5.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
+}
