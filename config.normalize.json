@@ -7,8 +7,5 @@
     "volume": "num",
     "numero": "num",
     "page": "firstnum"
-  },
-  "config":{
-    "liste_punct":"?!'(),.:;@#%&*-_{}[]\\/"
   }
 }
