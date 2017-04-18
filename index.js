@@ -3,13 +3,15 @@
 /*jslint indent: 2 */
 "use strict";
 
-var business = {};
-var fs = require('fs');
-var _ = require('lodash');
-var unidecode = require('unidecode');
-var XRegExp = require('xregexp');
+const business = {};
+const fs = require('fs');
+const _ = require('lodash');
+const unidecode = require('unidecode');
+const XRegExp = require('xregexp');
+const kuler = require('kuler');
 
-var defaultDiacriticsRemovalMap = [
+
+const defaultDiacriticsRemovalMap = [
     {'base':'A', 'letters':'\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F'},
     {'base':'AA','letters':'\uA732'},
     {'base':'AE','letters':'\u00C6\u01FC\u01E2'},
@@ -98,60 +100,55 @@ var defaultDiacriticsRemovalMap = [
     {'base':'z','letters':'\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763'}
 ];
 
-var diacriticsMap = {};
-for (var i=0; i < defaultDiacriticsRemovalMap .length; i++){
-    var letters = defaultDiacriticsRemovalMap [i].letters;
-    for (var j=0; j < letters.length ; j++){
+const effects = {
+
+    'noespace' : function(value){
+        return value.replace(/ /ig,"");
+    },
+
+    'noaccent' : function(value){
+        return removeDiacritics(value);
+    },
+
+    'lowcase' : function(value){
+        return value.toLowerCase();
+    },
+
+    'alphanum' : function(value){
+        return value.replace(/[^0-9a-zA-Z]/gi, "");
+    },
+
+    'nopunctuation' : function(value){
+
+        const regex = XRegExp('\\p{P}','A');
+        value = value.replace(/\'/g, "");
+        return value.replace(regex,"");
+
+    },
+
+    'num' : function(value){
+        return value.replace(/[^0-9]/gi, "");
+    },
+
+    'firstnum' : function(value){
+        return /([0-9]+){1}/.exec(value)[0];
+    }
+};
+
+const diacriticsMap = {};
+for (let i = 0; i < defaultDiacriticsRemovalMap.length; i++) {
+    let letters = defaultDiacriticsRemovalMap [i].letters;
+    for (let j = 0; j < letters.length; j++) {
         diacriticsMap[letters[j]] = defaultDiacriticsRemovalMap [i].base;
     }
 }
 
 // "what?" version ... http://jsperf.com/diacritics/12
-function removeDiacritics (str) {
+const removeDiacritics = function(str) {
     return str.replace(/[^\u0000-\u007E]/g, function(a){
         return diacriticsMap[a] || a;
     });
-}
-
-var applyNormalization = function (name,value){
-
-    var rules = JSON.parse(fs.readFileSync('config.normalize.json','utf8'));
-
-
-    var normalize_effect = rules['champs'][name].split(',');
-
-
-    _.forEach(normalize_effect, function(normalize_value){
-
-        if (normalize_value.trim() == "noespace")
-            value = unidecode(value).replace(/ /ig, "");
-        if (normalize_value.trim() == "noaccent") {
-            value = removeDiacritics(value);
-            //value = unidecode(value);
-        }
-        if (normalize_value.trim() == "lowcase")
-            value = unidecode(value).toLowerCase();
-        if (normalize_value.trim() == "alphanum")
-            value = unidecode(value).replace(/[^0-9a-zA-Z]/gi, "");
-
-        if (normalize_value.trim() == "nopunctuation") {
-
-            var regex = XRegExp('\\p{P}','A');
-            value = value.replace(/\'/g, "");
-            value = value.replace(regex,"");
-
-        }
-        if (normalize_value.trim() == "num")
-            value = unidecode(value).replace(/[^0-9]/gi, "");
-
-        if (normalize_value.trim() == "firstnum")
-            value = /([0-9]+){1}/.exec(unidecode(value))[0];
-
-    });
-
-    return value.trim();
-
-}
+};
 
 business.doTheJob = function (jsonLine, cb) {
 
@@ -159,49 +156,62 @@ business.doTheJob = function (jsonLine, cb) {
        tous les champs du chapeau Conditor afin d'alignement
      */
 
-    /* Pour chaque champs Conditor une suite de traitement à effectuer */
+    /* Pour chaque champs Conditor une suite de traitement à effectuer
+    * On s'appuie sur le fichier de configuration pour trouver champs et traitement
+    * */
 
-    if (jsonLine.titre.trim() !==""){
-        jsonLine.titre_normalized =applyNormalization('titre',jsonLine.titre);
+    let rules;
+
+    try {
+
+        rules = JSON.parse(fs.readFileSync('config.normalize.json', 'utf8'));
+
+    }
+    catch(err){
+
+       return cb({
+           errCode:1,
+           errMessage:"Erreur lors du chargement du fichier de configuration de la normalisation : "+err,
+       });
+
     }
 
-    if (jsonLine.auteur.trim() !==""){
-        jsonLine.auteur_normalized =applyNormalization('auteur',jsonLine.auteur);
-    }
+    _.forEach(rules['champs'], function(traitements,champs){
 
-    if (jsonLine.issn.trim() !==""){
-        jsonLine.issn_normalized =applyNormalization('issn',jsonLine.issn);
-    }
 
-    if (jsonLine.doi.trim() != ""){
-        jsonLine.doi_normalized =applyNormalization('doi',jsonLine.doi);
-    }
+        //console.log('champs:'+champs);
+        //console.log('traitement:'+traitements);
 
-    if (jsonLine.numero.trim() !==""){
-        jsonLine.numero_normalized = applyNormalization('numero',jsonLine.numero);
-    }
+        if (jsonLine[champs]) {
 
-    if (jsonLine.volume.trim() !==""){
-        jsonLine.volume_normalized = applyNormalization('volume',jsonLine.volume);
-    }
+            let normalize_effect = traitements.split(',');
 
-    if (jsonLine.page.trim() !==""){
-        jsonLine.page_normalized = applyNormalization('page',jsonLine.page);
-    }
+            let normalized_champs=jsonLine[champs];
 
+            //console.log('normalized_champs:'+normalized_champs);
+
+            _.forEach(normalize_effect, function (effect) {
+
+                effect=effect.trim();
+                if (effect!=="") {
+                    normalized_champs=effects[effect](normalized_champs);
+                    
+                }
+            });
+            
+            let name_champs= champs+'_normalized';
+            jsonLine[name_champs]=normalized_champs;
+
+        }
+    });
+
+    //console.log(jsonLine);
 
     return cb();
 
 };
 
 business.finalJob = function (docObjects, cb) {
-
-    /**
-    var err = [];
-    err.push(docObjects.pop());
-    docObjects[0].ending = 'finalJob';
-    return cb(err);
-    **/
 
     return cb();
 

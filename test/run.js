@@ -2,13 +2,14 @@
 
 'use strict';
 
-var
-  fs = require('fs')
-  , pkg = require('../package.json')
-  , business = require('../index.js')
-  , testData = require('./dataset/in/test.json')
-  , chai = require('chai')
-  , expect = chai.expect
+const
+    fs = require('fs'),
+    pkg = require('../package.json'),
+    business = require('../index.js'),
+    testData = require('./dataset/in/test.json'),
+    chai = require('chai'),
+    expect = chai.expect,
+    kuler = require('kuler')
   ;
 
 describe(pkg.name + '/index.js', function () {
@@ -16,8 +17,15 @@ describe(pkg.name + '/index.js', function () {
 
 
     it('normalisation des champs de la premiere notice: ', function (done) {
-      var docObject;
+      let docObject;
       business.doTheJob(docObject = testData[0], function (err) {
+
+        if (err){
+          console.log(kuler(err.errCode,'red'));
+          console.log(kuler(err.errMessage,'red'));
+          process.exit(1);
+        }
+
         expect(docObject.auteur_normalized).to.be.equal('questcequejensais');
         expect(docObject.titre_normalized).to.be.equal('alapechejeneveuxplusallermoman');
         expect(docObject.issn_normalized).to.be.equal('13674803');

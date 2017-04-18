@@ -18,6 +18,7 @@
   "dependencies": {
     "chai": "^3.5.0",
     "fs": "0.0.1-security",
+    "kuler": "0.0.0",
     "lodash": "^4.17.4",
     "mocha": "^2.5.3",
     "unidecode": "^0.1.8",
