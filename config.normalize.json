@@ -1,9 +1,14 @@
 {
-  "titre":"noespace, noaccent, lowcase, nopunctuation",
-  "auteur" :"noespace, noaccent, lowcase, nopunctuation",
-  "issn" : "alphanum",
-  "doi" : "alphanum",
-  "volume" : "num",
-  "numero" :"num",
-  "page" : "firstnum"
+  "champs" : {
+    "titre": "noespace, noaccent, lowcase, nopunctuation",
+    "auteur": "noespace, noaccent, lowcase, nopunctuation",
+    "issn": "alphanum",
+    "doi": "alphanum",
+    "volume": "num",
+    "numero": "num",
+    "page": "firstnum"
+  },
+  "config":{
+    "liste_punct":"?!'(),.:;@#%&*-_{}[]\\/"
+  }
 }

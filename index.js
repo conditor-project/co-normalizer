@@ -6,6 +6,8 @@
 var business = {};
 var fs = require('fs');
 var _ = require('lodash');
+var unidecode = require('unidecode');
+var XRegExp = require('xregexp');
 
 var defaultDiacriticsRemovalMap = [
     {'base':'A', 'letters':'\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F'},
@@ -115,34 +117,35 @@ var applyNormalization = function (name,value){
 
     var rules = JSON.parse(fs.readFileSync('config.normalize.json','utf8'));
 
-    /**
-    if (rules[name]!==undefined){
-        console.log('la regle existe :'+rules[name]);
-    }
-    **/
-    var normalize_effect = rules[name].split(',');
+
+    var normalize_effect = rules['champs'][name].split(',');
 
 
     _.forEach(normalize_effect, function(normalize_value){
 
         if (normalize_value.trim() == "noespace")
-            value = value.replace(/ /ig, "");
-        if (normalize_value.trim() == "noaccent")
+            value = unidecode(value).replace(/ /ig, "");
+        if (normalize_value.trim() == "noaccent") {
             value = removeDiacritics(value);
+            //value = unidecode(value);
+        }
         if (normalize_value.trim() == "lowcase")
-            value = value.toLowerCase();
+            value = unidecode(value).toLowerCase();
         if (normalize_value.trim() == "alphanum")
-            value = value.replace(/[^0-9a-zA-Z]/gi, "");
+            value = unidecode(value).replace(/[^0-9a-zA-Z]/gi, "");
 
         if (normalize_value.trim() == "nopunctuation") {
+
+            var regex = XRegExp('\\p{P}','A');
             value = value.replace(/\'/g, "");
-            value = value.replace(/\p{Punct}/gi, "");
+            value = value.replace(regex,"");
+
         }
         if (normalize_value.trim() == "num")
-            value = value.replace(/[^0-9]/gi, "");
+            value = unidecode(value).replace(/[^0-9]/gi, "");
 
         if (normalize_value.trim() == "firstnum")
-            value = /([0-9]+){1}/.exec(value)[0];
+            value = /([0-9]+){1}/.exec(unidecode(value))[0];
 
     });
 
@@ -189,25 +192,19 @@ business.doTheJob = function (jsonLine, cb) {
 
     return cb();
 
-    /*
-    jsonLine.canvasOK = true;
-    if (jsonLine.id1 === '2b6372af-c83c-4379-944c-f1bff3ab25d8') {
-      jsonLine.canvasOK = false;
-      return cb({
-        code: 1,
-        message: 'J\'aime po cet ID là...'
-      });
-    } else {
-      return cb();
-    }
-    */
 };
 
 business.finalJob = function (docObjects, cb) {
+
+    /**
     var err = [];
     err.push(docObjects.pop());
     docObjects[0].ending = 'finalJob';
     return cb(err);
+    **/
+
+    return cb();
+
 };
 
 module.exports = business;
