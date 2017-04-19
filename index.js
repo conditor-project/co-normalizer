@@ -101,38 +101,16 @@ const defaultDiacriticsRemovalMap = [
 ];
 
 const effects = {
-
-    'noespace' : function(value){
-        return value.replace(/ /ig,"");
+    noespace: (value) => { return value.replace(/ /ig,""); },
+    noaccent: (value) => { return removeDiacritics(value); },
+    lowcase: (value) => { return value.toLowerCase(); },
+    alphanum: (value) => { return value.replace(/[^0-9a-zA-Z]/gi, ""); },
+    nopunctuation: function (value) {
+      const regex = XRegExp('\\p{P}','A');
+      return value.replace(regex,"").replace(/\'/g, "");
     },
-
-    'noaccent' : function(value){
-        return removeDiacritics(value);
-    },
-
-    'lowcase' : function(value){
-        return value.toLowerCase();
-    },
-
-    'alphanum' : function(value){
-        return value.replace(/[^0-9a-zA-Z]/gi, "");
-    },
-
-    'nopunctuation' : function(value){
-
-        const regex = XRegExp('\\p{P}','A');
-        value = value.replace(/\'/g, "");
-        return value.replace(regex,"");
-
-    },
-
-    'num' : function(value){
-        return value.replace(/[^0-9]/gi, "");
-    },
-
-    'firstnum' : function(value){
-        return /([0-9]+){1}/.exec(value)[0];
-    }
+    num: (value) => { return value.replace(/[^0-9]/gi, ""); },
+    firstnum: (value) => {return /([0-9]+){1}/.exec(value)[0]; }
 };
 
 const diacriticsMap = {};
@@ -152,69 +130,35 @@ const removeDiacritics = function(str) {
 
 business.doTheJob = function (jsonLine, cb) {
 
-    /* Dans le cas de la normalisation la fonction doTheJob a pour objectif de normaliser
-       tous les champs du chapeau Conditor afin d'alignement
-     */
-
-    /* Pour chaque champs Conditor une suite de traitement à effectuer
-    * On s'appuie sur le fichier de configuration pour trouver champs et traitement
-    * */
-
-    let rules;
-
-    try {
-
-        rules = JSON.parse(fs.readFileSync('config.normalize.json', 'utf8'));
-
-    }
-    catch(err){
-
-       return cb({
-           errCode:1,
-           errMessage:"Erreur lors du chargement du fichier de configuration de la normalisation : "+err,
-       });
-
-    }
-
-    _.forEach(rules['champs'], function(traitements,champs){
-
-
-        //console.log('champs:'+champs);
-        //console.log('traitement:'+traitements);
-
-        if (jsonLine[champs]) {
-
-            let normalize_effect = traitements.split(',');
-
-            let normalized_champs=jsonLine[champs];
-
-            //console.log('normalized_champs:'+normalized_champs);
-
-            _.forEach(normalize_effect, function (effect) {
-
-                effect=effect.trim();
-                if (effect!=="") {
-                    normalized_champs=effects[effect](normalized_champs);
-                    
-                }
-            });
-            
-            let name_champs= champs+'_normalized';
-            jsonLine[name_champs]=normalized_champs;
-
-        }
+  let rules;
+  try {
+    rules = JSON.parse(fs.readFileSync('config.normalize.json', 'utf8'));
+  }
+  catch (err) {
+    return cb({
+      errCode: 1,
+      errMessage: "Erreur lors du chargement du fichier de configuration de la normalisation : " + err,
     });
+  }
 
-    //console.log(jsonLine);
-
-    return cb();
-
+  _.forEach(rules.champs, function (traitements, champs) {
+    if (jsonLine.hasOwnProperty(champs)) {
+      let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
+      let normalized_champs = jsonLine[champs];
+      _.forEach(normalize_effect, function (effect) {
+        if (effect !== "" && effects.hasOwnProperty(effect)) {
+          normalized_champs = effects[effect](normalized_champs);
+        }
+      });
+      let name_champs = champs + '_normalized';
+      jsonLine[name_champs] = normalized_champs;
+    }
+  });
+  return cb();
 };
 
 business.finalJob = function (docObjects, cb) {
-
     return cb();
-
 };
 
 module.exports = business;

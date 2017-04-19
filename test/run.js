@@ -14,11 +14,9 @@ const
 
 describe(pkg.name + '/index.js', function () {
   describe('#doTheJob', function () {
-
-
     it('normalisation des champs de la premiere notice: ', function (done) {
-      let docObject;
-      business.doTheJob(docObject = testData[0], function (err) {
+      let docObject = testData[0];
+      business.doTheJob(docObject, function (err) {
 
         if (err){
           console.log(kuler(err.errCode,'red'));
