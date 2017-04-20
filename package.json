@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://istex@vsistex.intra.inist.fr:22222/genicot/co-normalizer.git"
+    "url": "https://github.com/conditor-project/co-normalizer.git"
   },
   "keywords": [
     "conditor"
