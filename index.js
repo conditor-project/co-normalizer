@@ -4,18 +4,18 @@
 "use strict";
 
 const business = {};
-const fs = require('fs');
 const _ = require('lodash');
-const unidecode = require('unidecode');
 const XRegExp = require('xregexp');
 const kuler = require('kuler');
-const utils = require('./src/utils');
+const promise = require('bluebird');
+const fs = promise.promisifyAll(require('fs'));
+const removeDiacritics = require('diacritics').remove;
 
 
 
 const effects = {
     noespace: (value) => { return value.replace(/ /ig,""); },
-    noaccent: (value) => { return utils.removeDiacritics(value); },
+    noaccent: (value) => { return removeDiacritics(value); },
     lowcase: (value) => { return value.toLowerCase(); },
     alphanum: (value) => { return value.replace(/[^0-9a-zA-Z]/gi, ""); },
     nopunctuation: function (value) {
@@ -28,40 +28,30 @@ const effects = {
 
 
 business.getRules = function(path){
-	let rules;
-	try {
-		rules = JSON.parse(fs.readFileSync(path, 'utf8'));
-	}
-	catch (err) {
-		throw new Error("Erreur lors du chargement du fichier de configuration de la normalisation : " + err);
-	}
-
-	return rules;
-};
+	return fs.readFileAsync(path, 'utf8').then((contentFile) => {
+		return JSON.parse(contentFile);
+	})
+}
 
 
 business.doTheJob = function (jsonLine, cb) {
-
-
-	let rules = business.getRules('config.normalize.json');
-
-
-  _.forEach(rules.champs, function (traitements, champs) {
-    if (jsonLine.hasOwnProperty(champs)) {
-      let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
-      let normalized_champs = jsonLine[champs];
-      _.forEach(normalize_effect, function (effect) {
-        if (effect !== "" && effects.hasOwnProperty(effect)) {
-          normalized_champs = effects[effect](normalized_champs);
-        }
-      });
-      let name_champs = champs + '_normalized';
-      jsonLine[name_champs] = normalized_champs;
-    }
-  });
-  return cb();
+	this.getRules('config.normalize.json').then((rules)=>{
+		_.forEach(rules.champs, function (traitements, champs) {
+			if (jsonLine.hasOwnProperty(champs)) {
+				let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
+				let normalized_champs = jsonLine[champs];
+				_.forEach(normalize_effect, function (effect) {
+					if (effect !== "" && effects.hasOwnProperty(effect)) {
+						normalized_champs = effects[effect](normalized_champs);
+					}
+				});
+				let name_champs = champs + '_normalized';
+				jsonLine[name_champs] = normalized_champs;
+			}
+		});
+		return cb();
+	}).catch(function(err){ return cb(err); });
 };
-
 
 business.finalJob = function (docObjects, cb) {
     return cb();
