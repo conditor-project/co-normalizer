@@ -1,24 +1,50 @@
 [
   {
     "id": "1",
-    "titre": "A la pêche je ne veux plus aller moman ?",
-    "auteur": "Qu'est ce que j'en sais",
-    "doi": "10.1093/bioinformatics/btu019ut=WOS:000336095100034",
-    "issn": "1367-4803",
-    "numero":"n°5",
-    "volume":"v12",
-    "page":"page 1589",
+    "titre": {
+      "value" : "A la pêche je ne veux plus aller moman ?"
+    },
+    "auteur": {
+      "value" : "Qu'est ce que j'en sais"
+    } ,
+    "doi":{ "value": "10.1093/bioinformatics/btu019ut=WOS:000336095100034"
+    },
+    "issn":{ "value":"1367-4803"
+    },
+    "numero":{"value":"n°5"
+    },
+    "volume":{
+      "value":"v12"
+    },
+    "page":{
+      "value":"page 1589"
+    },
     "path":"",
     "source":""
   },
   { "id": "2",
-    "titre": "Traité d'urbanisme des peuples nomades",
-    "auteur": "U. Eco",
-    "doi": "10.1093/bioinformatics/btu019",
-    "issn": "1367-4808",
-    "numero": "n08",
-    "volume": "vol 6",
-    "page": "p1333-p1338",
-    "path":""
+    "titre":{
+      "value": "Traité d'urbanisme des peuples nomades"
+    },
+    "auteur":{
+      "value": "U. Eco"
+    },
+    "doi": {
+      "value":"10.1093/bioinformatics/btu019"
+    },
+    "issn": {
+      "value":"1367-4808"
+    },
+    "numero": {
+      "value":"n08"
+    },
+    "volume": {
+      "value":"vol 6"
+    },
+    "page": {
+      "value":"p1333-p1338"
+    },
+    "path":"",
+    "source":""
   }
 ]

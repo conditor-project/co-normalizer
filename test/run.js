@@ -16,6 +16,7 @@ describe(pkg.name + '/index.js', function () {
   describe('#doTheJob', function () {
     it('normalisation des champs de la premiere notice: ', function (done) {
 		let docObject = testData[0];
+		//console.log(docObject);
 		business.doTheJob(docObject, function (err) {
 
 			if (err) {
@@ -24,14 +25,14 @@ describe(pkg.name + '/index.js', function () {
 				process.exit(1);
 			}
 
-			expect(docObject.auteur_normalized).to.be.equal('questcequejensais');
-			expect(docObject.titre_normalized).to.be.equal('alapechejeneveuxplusallermoman');
-			expect(docObject.issn_normalized).to.be.equal('13674803');
-			expect(docObject.doi_normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');
-			expect(docObject.page_normalized).to.be.equal('1589');
-			expect(docObject.volume_normalized).to.be.equal('12');
-			expect(docObject.numero_normalized).to.be.equal('5');
-
+			expect(docObject.auteur.normalized).to.be.equal('questcequejensais');
+			expect(docObject.titre.normalized).to.be.equal('alapechejeneveuxplusallermoman');
+			expect(docObject.issn.normalized).to.be.equal('13674803');
+			expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');
+			expect(docObject.page.normalized).to.be.equal('1589');
+			expect(docObject.volume.normalized).to.be.equal('12');
+			expect(docObject.numero.normalized).to.be.equal('5');
+			//console.log(docObject);
 		});
 
 		done();
@@ -47,13 +48,13 @@ describe(pkg.name + '/index.js', function () {
 			process.exit(1);
 		}
 
-		expect(docObject.auteur_normalized).to.be.equal('ueco');
-		expect(docObject.titre_normalized).to.be.equal('traitedurbanismedespeuplesnomades');
-		expect(docObject.issn_normalized).to.be.equal('13674808');
-		expect(docObject.doi_normalized).to.be.equal('101093bioinformaticsbtu019');
-		expect(docObject.page_normalized).to.be.equal('1333');
-		expect(docObject.volume_normalized).to.be.equal('6');
-		expect(docObject.numero_normalized).to.be.equal('08');
+		expect(docObject.auteur.normalized).to.be.equal('ueco');
+		expect(docObject.titre.normalized).to.be.equal('traitedurbanismedespeuplesnomades');
+		expect(docObject.issn.normalized).to.be.equal('13674808');
+		expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019');
+		expect(docObject.page.normalized).to.be.equal('1333');
+		expect(docObject.volume.normalized).to.be.equal('6');
+		expect(docObject.numero.normalized).to.be.equal('08');
 
 	  });
 
