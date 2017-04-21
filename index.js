@@ -39,14 +39,13 @@ business.doTheJob = function (jsonLine, cb) {
 		_.forEach(rules.champs, function (traitements, champs) {
 			if (jsonLine.hasOwnProperty(champs)) {
 				let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
-				let normalized_champs = jsonLine[champs];
+				let normalized_champs = jsonLine[champs].value;
 				_.forEach(normalize_effect, function (effect) {
 					if (effect !== "" && effects.hasOwnProperty(effect)) {
 						normalized_champs = effects[effect](normalized_champs);
 					}
 				});
-				let name_champs = champs + '_normalized';
-				jsonLine[name_champs] = normalized_champs;
+				jsonLine[champs].normalized = normalized_champs;
 			}
 		});
 		return cb();
