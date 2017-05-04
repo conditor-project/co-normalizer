@@ -10,11 +10,12 @@ const kuler = require('kuler');
 const promise = require('bluebird');
 const fs = promise.promisifyAll(require('fs'));
 const removeDiacritics = require('diacritics').remove;
-
+const path = require('path');
+const normalizeConfigPath = path.join(__dirname, 'config.normalize.json');
 
 
 const effects = {
-    noespace: (value) => { return value.replace(/ /ig,""); },
+    noespace: (value) => { return value.replace(/\s/ig,""); },
     noaccent: (value) => { return removeDiacritics(value); },
     lowcase: (value) => { return value.toLowerCase(); },
     alphanum: (value) => { return value.replace(/[^0-9a-zA-Z]/gi, ""); },
@@ -35,7 +36,7 @@ business.getRules = function(path){
 
 
 business.doTheJob = function (jsonLine, cb) {
-	this.getRules('config.normalize.json').then((rules)=>{
+	this.getRules(normalizeConfigPath).then((rules)=>{
 		_.forEach(rules.champs, function (traitements, champs) {
 			if (jsonLine.hasOwnProperty(champs)) {
 				let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
