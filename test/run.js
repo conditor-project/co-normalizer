@@ -25,7 +25,8 @@ describe(pkg.name + '/index.js', function () {
 				process.exit(1);
 			}
 
-			expect(docObject.auteur.normalized).to.be.equal('questcequejensais');
+			expect(docObject.auteur.normalized).to.be.equal('eduardomolinaro');
+			expect(docObject.auteur_init.normalized).to.be.equal('eduardom');
 			expect(docObject.titre.normalized).to.be.equal('alapechejeneveuxplusallermoman');
 			expect(docObject.issn.normalized).to.be.equal('13674803');
 			expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');

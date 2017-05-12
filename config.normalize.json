@@ -2,6 +2,7 @@
   "champs" : {
     "titre": "noespace, noaccent, lowcase, nopunctuation",
     "auteur": "noespace, noaccent, lowcase, nopunctuation",
+    "auteur_init":"noespace, noaccent, lowcase, nopunctuation",
     "issn": "alphanum",
     "doi": "alphanum",
     "volume": "num",
