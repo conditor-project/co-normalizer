@@ -16,24 +16,16 @@ describe(pkg.name + '/index.js', function () {
   describe('#doTheJob', function () {
     it('normalisation des champs de la premiere notice: ', function (done) {
 		let docObject = testData[0];
-		//console.log(docObject);
 		business.doTheJob(docObject, function (err) {
-
-			if (err) {
-				console.log(kuler(err.errCode, 'red'));
-				console.log(kuler(err.errMessage, 'red'));
-				process.exit(1);
-			}
-
+      expect(err).to.be.not.undefined;
 			expect(docObject.auteur.normalized).to.be.equal('eduardomolinaro');
 			expect(docObject.auteur_init.normalized).to.be.equal('eduardom');
-			expect(docObject.titre.normalized).to.be.equal('alapechejeneveuxplusallermoman');
+			expect(docObject.titre.normalized).to.be.equal('alapechejeneveuxplusyallermoman');
 			expect(docObject.issn.normalized).to.be.equal('13674803');
 			expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');
 			expect(docObject.page.normalized).to.be.equal('1589');
 			expect(docObject.volume.normalized).to.be.equal('12');
 			expect(docObject.numero.normalized).to.be.equal('5');
-			//console.log(docObject);
 		});
 
 		done();
@@ -43,21 +35,16 @@ describe(pkg.name + '/index.js', function () {
 
       let docObject = testData[1];
       business.doTheJob(docObject, function (err) {
-      	if (err){
-			console.log(kuler(err.errCode,'red'));
-			console.log(kuler(err.errMessage,'red'));
-			process.exit(1);
-		}
+        expect(err).to.be.not.undefined;
+        expect(docObject.auteur.normalized).to.be.equal('ueco');
+        expect(docObject.titre.normalized).to.be.equal('traitedurbanismedespeuplesnomades');
+        expect(docObject.issn.normalized).to.be.equal('13674808');
+        expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019');
+        expect(docObject.page.normalized).to.be.equal('1333');
+        expect(docObject.volume.normalized).to.be.equal('6');
+        expect(docObject.numero.normalized).to.be.equal('08');
 
-		expect(docObject.auteur.normalized).to.be.equal('ueco');
-		expect(docObject.titre.normalized).to.be.equal('traitedurbanismedespeuplesnomades');
-		expect(docObject.issn.normalized).to.be.equal('13674808');
-		expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019');
-		expect(docObject.page.normalized).to.be.equal('1333');
-		expect(docObject.volume.normalized).to.be.equal('6');
-		expect(docObject.numero.normalized).to.be.equal('08');
-
-	  });
+        });
 
       done();
     });
@@ -79,7 +66,6 @@ describe(pkg.name + '/index.js', function () {
 
 		let path="../config.normalize.json";
 		business.getRules(path).catch((error) => {
-			// console.log(error)
 			expect(error).to.be.an('object');
 			expect(error.code).to.be.equal('ENOENT');
 		});
