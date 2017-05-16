@@ -17,7 +17,7 @@ describe(pkg.name + '/index.js', function () {
     it('normalisation des champs de la premiere notice: ', function (done) {
 		let docObject = testData[0];
 		business.doTheJob(docObject, function (err) {
-      expect(err).to.be.not.undefined;
+      expect(err).to.be.undefined;
 			expect(docObject.auteur.normalized).to.be.equal('eduardomolinaro');
 			expect(docObject.auteur_init.normalized).to.be.equal('eduardom');
 			expect(docObject.titre.normalized).to.be.equal('alapechejeneveuxplusyallermoman');
@@ -35,7 +35,7 @@ describe(pkg.name + '/index.js', function () {
 
       let docObject = testData[1];
       business.doTheJob(docObject, function (err) {
-        expect(err).to.be.not.undefined;
+        expect(err).to.be.undefined;
         expect(docObject.auteur.normalized).to.be.equal('ueco');
         expect(docObject.titre.normalized).to.be.equal('traitedurbanismedespeuplesnomades');
         expect(docObject.issn.normalized).to.be.equal('13674808');
