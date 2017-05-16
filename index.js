@@ -20,7 +20,7 @@ const effects = {
     lowcase: (value) => { return value.toLowerCase(); },
     alphanum: (value) => { return value.replace(/[^0-9a-zA-Z]/gi, ""); },
     nopunctuation: function (value) {
-      const regex = XRegExp('\\p{P}','A');
+      const regex = XRegExp('\\p{P}','gA');
       return value.replace(regex,"").replace(/\'/g, "");
     },
     num: (value) => { return value.replace(/[^0-9]/gi, ""); },
