@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/conditor-project/co-normalizer.svg?branch=master)](https://travis-ci.org/conditor-project/co-normalizer)
+
 CO-NORMALIZER
 ===============
 
