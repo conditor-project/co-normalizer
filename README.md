@@ -1,20 +1,102 @@
 [![Build Status](https://travis-ci.org/conditor-project/co-normalizer.svg?branch=master)](https://travis-ci.org/conditor-project/co-normalizer)
 
-CO-NORMALIZER
+co-normalizer
 ===============
 
 ## Présentation ##
 
-Le module **co-normalizer** est un module permettant de normaliser des champs texte.
+Le module `co-normalizer` est un module permettant de *normaliser* des champs texte.
+
+:warning: :warning: :warning: Dans notre contexte, **normaliser** signifie "homogénéiser ces champs en leur appliquant des pré-traitements prédéfinis". ⚠️ ⚠️ ⚠️ 
+
+Par exemple, le champ titre va être modifié ainsi :
+
+* suppression des espaces et autres caractères invisibles
+* suppression des accents
+* passage en minuscule de tous les caractères
+* suppression des signes de ponctuation
 
 ### Fonctionnement ###
+
+#### Structure d'entrée
+
+Les champs requis dans le JSON d'entrée sont les suivants :
+
+```
+ {
+ 	....
+ 	"titre": {
+        "value" : "..."
+    },
+    "auteur": {
+        "value" : "..."
+    } ,
+    "auteur_init":{
+        "value" : "..."
+    },
+    "doi":{ 
+    	"value": "...."
+    },
+    "issn":{ 
+    	"value":"1234-5678"
+    },
+    "numero":{
+    	"value":"n°1"
+    },
+    "volume":{
+        "value":"v123"
+    },
+    "page":{
+        "value":"page 1234"
+    }
+    ....
+}
+```
+
+#### Structure de sortie
+
+Pour chacun des champs d'entrée (voir ci-dessus), une sous-entrée `normalized` contenant la valeur normalisée est ajoutée. Par exemple :
+
+```
+{
+ 	....
+ 	"titre" : {
+        "value" : "Mon titre préféré.",
+        "normalized" : "montitreprefere"
+    },
+    "issn" : { 
+    	"value" : "1234-5678",
+    	"normalized" : "12345678"
+    },
+    "numero" : {
+    	"value":"n°1",
+    	"normalized" : "1"
+    },
+```
+
+### Types de pré-traitemens disponibles
+
+* `noespace` : suppression des espaces et autres caractères invisibles
+* `noaccent` : suppression des accents
+* `lowcase` : passage en minuscule de tous les caractères
+* `nopunctuation` : suppression des signes de ponctuation
+* `alphanum` : suppression de tous les caractères non-alphanumériques
+* `num` : suppression de tous les caractères non-numériques
+* `firstnum` : conservation de la première séquence numérique uniquement
+
+#### Configuration des pré-traitemens
+
+La liste des pré-traitements appliqués à chaque champ est définie dans le fichier de configuration [config.normalize.json](./config.normalize.json).
+
+#### Fonctionnement interne
 
 `co-normalizer` effectue ses traitements dans une fonction `doTheJob()` dédiée.
 
 Dans notre cas minimal, le module effectue les opérations suivantes :
-  * récupération en entrée d'un `docObject` (objet JSON avec un champ `idIstex`), ainsi que d'une callback `cb`.
-  * normalisation des champs définis dans le fichier config.normalize.json
-  * Les éventuelles erreurs sont renvoyées en paramètre de la callback `cb`
+
+- récupération en entrée d'un `docObject` (objet JSON avec un champ `idIstex`), ainsi que d'une callback `cb`.
+- normalisation des champs définis dans le fichier config.normalize.json
+- Les éventuelles erreurs sont renvoyées en paramètre de la callback `cb`
 
 ## Utilisation ##
 
