@@ -7,7 +7,7 @@ co-normalizer
 
 Le module `co-normalizer` est un module permettant de *normaliser* des champs texte.
 
-:warning: :warning: :warning: Dans notre contexte, **normaliser** signifie "homogénéiser ces champs en leur appliquant des pré-traitements prédéfinis". ⚠️ ⚠️ ⚠️ 
+:warning: :warning: :warning: Dans notre contexte, **normaliser** signifie "homogénéiser ces champs en leur appliquant des pré-traitements prédéfinis". 
 
 Par exemple, le champ titre va être modifié ainsi :
 
@@ -25,7 +25,7 @@ Les champs requis dans le JSON d'entrée sont les suivants :
 ```
  {
  	....
- 	"titre": {
+    "titre": {
         "value" : "..."
     },
     "auteur": {
