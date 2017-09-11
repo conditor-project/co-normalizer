@@ -4,9 +4,20 @@
     "auteur": "noespace, noaccent, lowcase, nopunctuation",
     "auteur_init":"noespace, noaccent, lowcase, nopunctuation",
     "issn": "alphanum",
+    "issne": "alphanum",
+    "ut": "alphanum",
     "doi": "alphanum",
+    "arxiv": "alphanum",
+    "pubmed": "alphanum",
+    "nnt":"alphanum",
+    "patentNumber":"alphanum",
     "volume": "num",
     "numero": "num",
-    "page": "firstnum"
+    "page": "firstnum",
+    "idhal":"alphanum",
+    "halauthorid":"alphanum",
+    "orcid":"alphanum",
+    "researcherid":"alphanum",
+    "viaf":"alphanum"
   }
 }
