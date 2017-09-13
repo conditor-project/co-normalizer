@@ -35,7 +35,7 @@ business.getRules = function(path){
 business.doTheJob = function (jsonLine, cb) {
 	this.getRules(normalizeConfigPath).then((rules)=>{
 		_.forEach(rules.champs, function (traitements, champs) {
-			if (jsonLine.hasOwnProperty(champs)) {
+			if (jsonLine.hasOwnProperty(champs) && jsonLine[champs].value!=="") {
 				let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
 				let normalized_champs = jsonLine[champs].value;
 				_.forEach(normalize_effect, function (effect) {
@@ -44,6 +44,9 @@ business.doTheJob = function (jsonLine, cb) {
 					}
 				});
 				jsonLine[champs].normalized = normalized_champs;
+			}
+			else if (jsonLine.hasOwnProperty(champs)){
+				jsonLine[champs].normalized = "";
 			}
 		});
 		return cb();
