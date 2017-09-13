@@ -20,8 +20,9 @@ const effects = {
       const regex = XRegExp('\\p{P}','gA');
       return value.replace(regex,"").replace(/\'/g, "");
     },
-    num: (value) => { return value.replace(/[^0-9]/gi, ""); },
-    firstnum: (value) => {return /([0-9]+){1}/.exec(value)[0]; }
+	num: (value) => { return value.replace(/[^0-9]/gi, ""); },
+	spacenum : (value) => { return value.replace(/[^0-9]/gi, " "); },
+    firstnum: (value) => {return (/([0-9]+){1}/.exec(value)!==null && (/([0-9]+){1}/.exec(value)[0]!==undefined)) ? /([0-9]+){1}/.exec(value)[0] : "" ; }
 };
 
 
@@ -35,7 +36,7 @@ business.getRules = function(path){
 business.doTheJob = function (jsonLine, cb) {
 	this.getRules(normalizeConfigPath).then((rules)=>{
 		_.forEach(rules.champs, function (traitements, champs) {
-			if (jsonLine.hasOwnProperty(champs) && jsonLine[champs].value!=="") {
+			if (jsonLine.hasOwnProperty(champs) && jsonLine[champs].value!=='') {
 				let normalize_effect = traitements.split(',').map((traitement) => {return traitement.trim()});
 				let normalized_champs = jsonLine[champs].value;
 				_.forEach(normalize_effect, function (effect) {
@@ -45,7 +46,7 @@ business.doTheJob = function (jsonLine, cb) {
 				});
 				jsonLine[champs].normalized = normalized_champs;
 			}
-			else if (jsonLine.hasOwnProperty(champs)){
+			else if (jsonLine.hasOwnProperty(champs) && jsonLine[champs].value===''){
 				jsonLine[champs].normalized = "";
 			}
 		});
