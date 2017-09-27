@@ -1,6 +1,9 @@
 {
   "champs" : {
     "titre": "noespace, noaccent, lowcase, nopunctuation",
+    "titreen": "noespace, noaccent, lowcase, nopunctuation",
+    "titrefr": "noespace, noaccent, lowcase, nopunctuation",
+    "titreSource": "noespace, noaccent, lowcase, nopunctuation",
     "auteur": "noespace, noaccent, lowcase, nopunctuation",
     "auteur_init":"noespace, noaccent, lowcase, nopunctuation",
     "issn": "alphanum",
@@ -12,13 +15,14 @@
     "pubmed": "alphanum",
     "nnt":"alphanum",
     "patentNumber":"alphanum",
-    "volume": "num",
+    "volume": "firstnum",
     "numero": "num",
     "page": "spacenum, firstnum",
     "idhal":"alphanum",
     "halauthorid":"alphanum",
     "orcid":"alphanum",
     "researcherid":"alphanum",
-    "viaf":"alphanum"
+    "viaf":"alphanum",
+    "datePubli":"annee"
   }
 }

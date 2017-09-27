@@ -22,7 +22,8 @@ const effects = {
     },
 	num: (value) => { return value.replace(/[^0-9]/gi, ""); },
 	spacenum : (value) => { return value.replace(/[^0-9]/gi, " "); },
-    firstnum: (value) => {return (/([0-9]+){1}/.exec(value)!==null && (/([0-9]+){1}/.exec(value)[0]!==undefined)) ? /([0-9]+){1}/.exec(value)[0] : "" ; }
+	firstnum: (value) => {return (/([0-9]+){1}/.exec(value)!==null && (/([0-9]+){1}/.exec(value)[0]!==undefined)) ? /([0-9]+){1}/.exec(value)[0] : "" ; },
+	annee: (value) =>{return (/([0-9]{4})/.exec(value)!==null && (/([0-9]{4})/.exec(value)[0]!==undefined)) ? /([0-9]{4})/.exec(value)[0] : "";}
 };
 
 
