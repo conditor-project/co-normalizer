@@ -52,7 +52,9 @@ business.doTheJob = function (jsonLine, cb) {
 			}
 		});
 		return cb();
-	}).catch(function(err){ return cb(err); });
+	}).catch(function(err){
+		 return cb(err); 
+		});
 };
 
 business.finalJob = function (docObjects, cb) {

@@ -17,7 +17,6 @@ describe(pkg.name + '/index.js', function () {
     it('normalisation des champs de la premiere notice: ', function (done) {
 		let docObject = testData[0];
 		business.doTheJob(docObject, function (err) {
-      console.log(docObject);
       expect(err).to.be.undefined;
 			expect(docObject.auteur.normalized).to.be.equal('eduardomolinaro');
 			expect(docObject.auteur_init.normalized).to.be.equal('eduardom');
@@ -26,7 +25,17 @@ describe(pkg.name + '/index.js', function () {
 			expect(docObject.doi.normalized).to.be.equal('101093bioinformaticsbtu019utWOS000336095100034');
 			//expect(docObject.page.normalized).to.be.equal('1589');
 			expect(docObject.volume.normalized).to.be.equal('12');
-			expect(docObject.numero.normalized).to.be.equal('5');
+      expect(docObject.numero.normalized).to.be.equal('5');
+      expect(docObject.eissn.normalized).to.be.equal('13674803');
+      expect(docObject.isbn.normalized).to.be.equal('13674803');
+      expect(docObject.idhal.normalized).to.be.equal('123456789');
+      expect(docObject.halauthorid.normalized).to.be.equal('894287115979411598008942861126485726246894287115979411598008942861126485726246');
+      expect(docObject.viaf.normalized).to.be.equal('123456789');
+      expect(docObject.nnt.normalized).to.be.equal('123456789');
+      expect(docObject.ut.normalized).to.be.equal('123456789');
+      expect(docObject.arxiv.normalized).to.be.equal('123456789');
+      expect(docObject.orcid.normalized).to.be.equal('123456789');
+      expect(docObject.researcherid.normalized).to.be.equal('123456789');
 		});
 
 		done();
@@ -36,7 +45,6 @@ describe(pkg.name + '/index.js', function () {
 
       let docObject = testData[1];
       business.doTheJob(docObject, function (err) {
-        console.log(docObject);
         expect(err).to.be.undefined;
         expect(docObject.auteur.normalized).to.be.equal('ueco');
         expect(docObject.titre.normalized).to.be.equal('traitedurbanismedespeuplesnomades');
@@ -45,6 +53,16 @@ describe(pkg.name + '/index.js', function () {
         //expect(docObject.page.normalized).to.be.equal('1333');
         expect(docObject.volume.normalized).to.be.equal('6');
         expect(docObject.numero.normalized).to.be.equal('08');
+        expect(docObject.eissn.normalized).to.be.equal('13674803');
+        expect(docObject.isbn.normalized).to.be.equal('13674803');
+        expect(docObject.idhal.normalized).to.be.equal('123456789');
+        expect(docObject.halauthorid.normalized).to.be.equal('894287115979411598008942861126485726246894287115979411598008942861126485726246');
+        expect(docObject.viaf.normalized).to.be.equal('123456789');
+        expect(docObject.nnt.normalized).to.be.equal('123456789');
+        expect(docObject.ut.normalized).to.be.equal('123456789');
+        expect(docObject.arxiv.normalized).to.be.equal('123456789');
+        expect(docObject.orcid.normalized).to.be.equal('123456789');
+        expect(docObject.researcherid.normalized).to.be.equal('123456789');
 
         });
 
@@ -64,15 +82,11 @@ describe(pkg.name + '/index.js', function () {
 
   	it ('test de récupération de config qui plante ',function(){
 
-
-
 		let path="../config.normalize.json";
 		business.getRules(path).catch((error) => {
 			expect(error).to.be.an('object');
 			expect(error.code).to.be.equal('ENOENT');
 		});
-
-
 	});
   });
 });

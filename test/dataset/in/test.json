@@ -4,17 +4,46 @@
     "titre": {
       "value" : "A la pêche je ne veux plus-y aller moman ?"
     },
+    "titrefr":  {
+      "value" : "A la pêche je ne veux plus-y aller moman ?"
+    },
+    "titreen": {
+      "value":"To fish I don't want to go Mom ?"
+    },
     "auteur": {
       "value" : "Eduardo Molinaro"
     } ,
     "auteur_init":{
       "value" : "Eduardo M"
     },
-    "doi":{ "value": "10.1093/bioinformatics/btu019ut=WOS:000336095100034"
+    "doi":{ 
+      "value": "10.1093/bioinformatics/btu019ut=WOS:000336095100034"
+    },
+    "arxiv": {
+      "value": "12-345/678:9"
+    },
+    "pubmed": {
+      "value": "12-345/678:9"
+    },
+    "nnt": {
+      "value": "12-345/678:9"
+    },
+    "patentNumber":{
+      "value":"12-345/678:9"
+    },
+    "ut": {
+      "value": "12-345/678:9"
     },
     "issn":{ "value":"1367-4803"
     },
-    "numero":{"value":"n°5"
+    "eissn":{
+      "value":"1367-4803"
+    },
+    "isbn":{
+      "value":"1367-4803"
+    },
+    "numero":{
+      "value":"n°5"
     },
     "volume":{
       "value":"v12"
@@ -22,6 +51,31 @@
     "page":{
       "value":"page"
     },
+    "idhal":{
+      "value":"12-345/678:9"
+    },
+    "halauthorid":{
+      "value":"894287 1159794 1159800 894286 1126485 726246 894287 1159794 1159800 894286 1126485 726246"
+    },
+    "orcid":{
+      "value":"12-345/678:9"
+    },
+    "researcherid":{
+      "value":"123:456:789+"
+    },
+    "viaf":{
+      "value":"123.456.789"
+    },
+    "typeDocument":{
+      "value":"ART"
+    },
+    "titreSource":{
+      "value":""
+    },
+    "datePubli":{
+      "value":""
+    },
+    "typeConditor":"Article",
     "path":"",
     "source":""
   },
@@ -29,14 +83,44 @@
     "titre":{
       "value": "Traité d'urbanisme des peuples nomades"
     },
+    "titrefr":  {
+      "value" : "A la pêche je ne veux plus-y aller moman ?"
+    },
+    "titreen": {
+      "value":"To fish I don't want to go Mom ?"
+    },
     "auteur":{
       "value": "U. Eco"
+    },
+    "auteur_init":{
+      "value" : "Eduardo M"
     },
     "doi": {
       "value":"10.1093/bioinformatics/btu019"
     },
+    "arxiv": {
+      "value": "12-345/678:9"
+    },
+    "pubmed": {
+      "value": "12-345/678:9"
+    },
+    "nnt": {
+      "value": "12-345/678:9"
+    },
+    "patentNumber":{
+      "value":"12-345/678:9"
+    },
+    "ut": {
+      "value": "12-345/678:9"
+    },
     "issn": {
       "value":"1367-4808"
+    },
+    "eissn":{
+      "value":"1367-4803"
+    },
+    "isbn":{
+      "value":"1367-4803"
     },
     "numero": {
       "value":"n08"
@@ -47,9 +131,31 @@
     "page": {
       "value":"epub"
     },
+    "idhal":{
+      "value":"12-345/678:9"
+    },
+    "halauthorid":{
+      "value":"894287 1159794 1159800 894286 1126485 726246 894287 1159794 1159800 894286 1126485 726246"
+    },
+    "orcid":{
+      "value":"12-345/678:9"
+    },
+    "researcherid":{
+      "value":"12-345/678:9"
+    },
+    "viaf":{
+      "value":"12-345/678:9"
+    },
+    "typeDocument":{
+      "value":"ART"
+    },
+    "titreSource":{
+      "value":""
+    },
     "datePubli":{
       "value":"1999, date 15"
     },
+    "typeConditor":"Article",
     "path":"",
     "source":""
   }
