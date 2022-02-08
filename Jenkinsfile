@@ -19,10 +19,12 @@ pipeline {
         sh 'npm audit --audit-level=critical'
 
         sh 'echo "then dependencyCheck..."'
-        dependencyCheck additionalArguments: '''
+        dependencyCheck 
+            odcInstallation: '6.5.3',
+            additionalArguments: '''
                     --proxyserver proxyout.inist.fr --proxyport 8080
                     --enableExperimental
-                    --prettyPrint''', odcInstallation: 'DependencyCheck 6.5.3'
+                    --prettyPrint'''
 
 
         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
