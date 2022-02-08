@@ -21,10 +21,7 @@ pipeline {
         sh 'echo "then dependencyCheck..."'
         dependencyCheck additionalArguments: '--proxyserver proxyout.inist.fr --proxyport 8080 --enableExperimental --prettyPrint', odcInstallation: '6.5.3'
 
-        dependencyCheckPublisher 
-            pattern: 'dependency-check-report.xml',
-            failedTotalCritical: 3,
-            failedTotalMedium: 7
+        dependencyCheckPublisher pattern: 'dependency-check-report.xml', failedTotalCritical: 3, failedTotalMedium: 7
       }
     }
 
