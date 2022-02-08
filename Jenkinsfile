@@ -11,6 +11,11 @@ pipeline {
                 sh 'npm ci'
             }
         }
+        stage('Audit') {
+            steps {
+                sh 'npm audit --audit-level=moderate'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'npm test'
