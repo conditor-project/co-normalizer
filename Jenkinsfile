@@ -15,9 +15,10 @@ pipeline {
 
     stage('Audit') {
       steps {
+        sh 'echo "First, npm audit..."'
         sh 'npm audit --audit-level=critical'
-        sh 'echo "then dependencyCheck'
 
+        sh 'echo "then dependencyCheck..."'
         dependencyCheck additionalArguments: '''
                     --proxyserver proxyout.inist.fr --proxyport 8080
                     --enableExperimental
