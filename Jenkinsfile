@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'node:12.16.3-alpine' }
+        docker { 
+            args '-e http_proxy -e https_proxy -e no_proxy'
+            image 'node:12.16.3-alpine' 
+        }
     }
     stages {
         stage('Build') {
