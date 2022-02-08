@@ -17,10 +17,14 @@ pipeline {
       steps {
         sh 'npm audit --audit-level=critical'
         sh 'echo "then dependencyCheck'
-        dependencyCheck {
-            odcInstallation: 'DependencyCheck 6.5.3' 
-            additionalArguments: '--enableExperimental --proxyserver proxyout.inist.fr --proxyport 8080'
-        }
+
+        dependencyCheck additionalArguments: '''
+                    --proxyserver proxyout.inist.fr --proxyport 8080
+                    --enableExperimental
+                    --prettyPrint''', odcInstallation: 'DependencyCheck 6.5.3'
+
+
+        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
       }
     }
 
