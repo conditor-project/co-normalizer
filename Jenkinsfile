@@ -33,6 +33,5 @@ pipeline {
   environment {
     http_proxy = 'http://proxyout.inist.fr:8080'
     https_proxy = 'http://proxyout.inist.fr:8080'
-    JAVA_HOME = '/opt/java/openjdk'
   }
 }
