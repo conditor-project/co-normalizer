@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:12.16.3-alpine'
-      args '-e http_proxy -e https_proxy'
+      args '-e http_proxy -e https_proxy -e no_proxy'
     }
 
   }
@@ -45,5 +45,6 @@ pipeline {
     http_proxy = 'http://proxyout.inist.fr:8080'
     https_proxy = 'http://proxyout.inist.fr:8080'
     JAVA_HOME = '/opt/openjdk-11'
+    JAVA_OPTS = '-Dhttp.proxyHost=proxyout.inist.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyout.inist.fr -Dhttps.proxyPort=8080'
   }
 }
