@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:12.16.3-alpine'
-      args '-e http_proxy -e https_proxy -e JAVA_HOME'
+      args '-e http_proxy -e https_proxy'
     }
 
   }
