@@ -21,8 +21,8 @@ pipeline {
         sh 'echo "then dependencyCheck..."'
         sh 'rm -f /var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/6.5.3/data/odc.update.lock'
         dependencyCheck(additionalArguments: '--purge --proxyserver proxyout.inist.fr --proxyport 8080 --enableExperimental --prettyPrint', odcInstallation: '6.5.3')
-        dependencyCheckPublisher(pattern: 'dependency-check-report.xml', failedTotalCritical: 3, failedTotalMedium: 7)
         dependencyCheck(additionalArguments: '--proxyserver proxyout.inist.fr --proxyport 8080 --enableExperimental --prettyPrint', odcInstallation: '6.5.3')
+        dependencyCheckPublisher(pattern: 'dependency-check-report.xml', failedTotalCritical: 3, failedTotalMedium: 7)
       }
     }
 
