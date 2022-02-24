@@ -8,19 +8,9 @@ pipeline {
   }
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'npm ci'
-          }
-        }
-
-        stage('error') {
-          steps {
-            sh 'apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community'
-          }
-        }
-
+      steps {
+        sh 'npm ci'
+        sh 'apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community'
       }
     }
 
