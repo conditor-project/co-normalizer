@@ -15,7 +15,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('error') {
           steps {
             sh 'apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community'
           }
@@ -44,5 +44,6 @@ pipeline {
   environment {
     http_proxy = 'http://proxyout.inist.fr:8080'
     https_proxy = 'http://proxyout.inist.fr:8080'
+    JAVA_HOME = '/opt/openjdk-11'
   }
 }
